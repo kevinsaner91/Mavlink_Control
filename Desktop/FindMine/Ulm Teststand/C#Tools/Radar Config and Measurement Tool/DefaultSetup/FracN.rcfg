@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<!--This file is a configuration file for Radar Config an Measurement Tool-->
-<RadarConfigMeasurementTool Module="2">
-  <System startF="77000000000" slope="4000000000000" f_mult="12" sys_clk="48000000" sample_clk="4000000" f_ext="48000000" vco_pre="4" samples="4096" skip="200" FFT_size="4096" adc_ch="0" gain="99" dac_bias1="40" dac_bias2="0" ramps_p_c="1" delay="200" />
-  <Window type="1" nwin="7" a0="529.697536313331" a1="-447.095439524941" a2="-90.8173695878456" a3="121.50510617749" a4="-11.1489180231667" a5="1.99674299398765" a6="-0.0279085459702763" a7="0.000513676956741437" a8="0" a9="0" />
-  <HMC r01="0x01000002" r02="0x02000001" r03="0x03000021" r04="0x046B8E39" r05="0x0550F1CD" r06="0x06001FBF" r07="0x07004865" r08="0x08016FFF" r09="0x09400408" r10="0x0A00025F" r11="0x0B01E061" r12="0x0C000023" r13="0x0D32CE39" r15="0x0F000000" />
-</RadarConfigMeasurementTool>
