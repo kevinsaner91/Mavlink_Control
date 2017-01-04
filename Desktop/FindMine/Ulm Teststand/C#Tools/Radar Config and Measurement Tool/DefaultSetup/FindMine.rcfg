@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--This file is a configuration file for Radar Config an Measurement Tool-->
+<RadarConfigMeasurementTool Module="6">
+  <System startF="1000000000" slope="976562500000" f_mult="1" sys_clk="48000000" sample_clk="4000000" f_ext="4000000" vco_pre="1" pll_pre="1" pll_a_ctr="0" pll_b_ctr="7" samples="4096" skip="0" FFT_size="4096" adc_ch="0" gain="99" dac_bias1="80" ramps_p_c="1" delay="0" />
+  <Window type="1" nwin="7" a0="529.697536313331" a1="-447.095439524941" a2="-90.8173695878456" a3="121.50510617749" a4="-11.1489180231667" a5="1.99674299398765" a6="-0.0279085459702763" a7="0.000513676956741437" a8="0" a9="0" />
+  <PLL Ref="0x100004" AB="0x000701" Function="0x4000A2" />
+  <DDS Control="0x0EAB" FSTART_lsb="0xCE7A" FSTART_msb="0xD2F9" DeltaF_lsb="0x22FA" DeltaF_msb="0x3000" Ninc="0x1FFF" tINT="0x600C" TBURST="0xA000" />
+</RadarConfigMeasurementTool>

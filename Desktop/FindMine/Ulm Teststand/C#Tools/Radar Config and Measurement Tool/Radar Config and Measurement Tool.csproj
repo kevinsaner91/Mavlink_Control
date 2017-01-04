@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B5087BA0-FEC8-412D-90F7-B5FA1CB74A96}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Radar_Config_and_Measurement_Tool</RootNamespace>
+    <AssemblyName>Radar Config and Measurement Tool</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>\\pcmepo01\Projects\15002533 Radar Basis Chip 79 150 GHz\Results\RadarConfigAndMeasurementTool\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>RCM Tool</ProductName>
+    <PublisherName>Endress+Hauser</PublisherName>
+    <SuiteName>Radar Config and Measurment Tool</SuiteName>
+    <ApplicationRevision>25</ApplicationRevision>
+    <ApplicationVersion>1.5.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>E+H_Bildmarke_2c_64x64.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>FD6530F88B1DFAFE4207A0AC1DBC6C647CF819DC</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Radar Config and Measurement Tool_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AD5930.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ADF4108.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Automation.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutomationScriptCreator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutomationScriptCreator.Designer.cs">
+      <DependentUpon>AutomationScriptCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BGT24MTR11.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BGW.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Capture.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRC_DSP.cs" />
+    <Compile Include="DSP_Comm.cs" />
+    <Compile Include="DSP_ComSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DSP_ComSelect.Designer.cs">
+      <DependentUpon>DSP_ComSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HMC703.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NumericInputDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NumericInputDialog.Designer.cs">
+      <DependentUpon>NumericInputDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsCollector.cs" />
+    <Compile Include="SystemConfig.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrackControl.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrackControl\UniUlm_PositionTracker.cs" />
+    <Compile Include="TrackControl\UniUlm_PositionControl.cs" />
+    <Compile Include="TrackControl\Simulator_PositionControl.cs" />
+    <Compile Include="TrackControl\Simulator_PositionTracker.cs" />
+    <Compile Include="TrackControl\MillTrack_PositionTracker.cs" />
+    <Compile Include="TrackControl\Lab_PositionControl.cs" />
+    <Compile Include="TrackControl\MillTrack_PositionControl.cs" />
+    <Compile Include="TrackControl\Lab_PositionTracker.cs" />
+    <Compile Include="TrackControl\PositionControl.cs" />
+    <Compile Include="TrackControl\PositionTracker.cs" />
+    <Compile Include="XmlConfiguration.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutomationScriptCreator.resx">
+      <DependentUpon>AutomationScriptCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DSP_ComSelect.resx">
+      <DependentUpon>DSP_ComSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NumericInputDialog.resx">
+      <DependentUpon>NumericInputDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <EmbeddedResource Include="doc\Radar Config and Measurement Tool.pdf" />
+    <None Include="DefaultSetup\BGT24.rcfg" />
+    <None Include="DefaultSetup\FindMine.rcfg" />
+    <None Include="DefaultSetup\FracN.rcfg" />
+    <None Include="DefaultSetup\RRC01.rcfg" />
+    <None Include="DefaultSetup\RRC160_DDS.rcfg" />
+    <None Include="DefaultSetup\RRC160_FracN.rcfg" />
+    <None Include="DefaultSetup\TG.rcfg" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 und x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="E+H_Bildmarke_2c_64x64.ico" />
+    <None Include="MatlabScript\suptitle.m" />
+    <None Include="MatlabScript\huder.m" />
+    <None Include="MatlabScript\fmcwrun_from_RCM_Tool_TimeBased.m" />
+    <None Include="MatlabScript\fmcwrun_from_RCM_Tool_Linearity.m" />
+    <None Include="MatlabScript\fmcwrun_from_RCM_Tool_Kondensat.m" />
+    <None Include="MatlabScript\fmcwrun_from_RCM_Tool.m" />
+    <None Include="MatlabScript\fmcwevalini_default_RCM.m" />
+    <None Include="MatlabScript\fmcweval_range.m" />
+    <None Include="MatlabScript\fmcweval_maxima_detection.m" />
+    <None Include="MatlabScript\fmcweval_ensemble.m" />
+    <None Include="MatlabScript\fmcweval.m" />
+    <None Include="MatlabScript\dispstat.m" />
+    <None Include="MatlabScript\dft_us.m" />
+    <None Include="MatlabScript\c0.m" />
+    <None Include="Images\ADF4108_ABLatch.png" />
+    <None Include="Images\ADF4108_FunctionLatch.png" />
+    <None Include="Images\ADF4108_RefLatch.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

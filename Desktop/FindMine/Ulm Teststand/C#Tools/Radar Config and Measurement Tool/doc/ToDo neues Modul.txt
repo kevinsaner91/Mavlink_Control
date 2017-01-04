@@ -1,0 +1,22 @@
+ToDo's um neues Modul hinzuzufügen:
+
+SettingsCollector:
+	enum Board, BoardModule und BoardText erweitern
+	
+Main.cs:
+	neues Toolstrip erzeugen und *ToolStripMenuItem_Click() funktion hinzufügen und loadDefaultConfigurationToolStripMenuItem_Click() Funktionen anpassen 
+	updateTabs() und updateTabSelection() -> switch case anpassen
+	
+SystemConfig.cs
+	updateSysInfoBox() und updateSys_PLL_ratio() und btn_Sys_initSystem_Click erweitern
+	
+BGW.cs:
+	bgw_DoWork() anpassen
+	
+XMLConfiguration.cs:
+	load und store Funktion anpassen
+	
+AutomationScriptCreator
+	Modul zur Combobox hinzufügen
+	
+	

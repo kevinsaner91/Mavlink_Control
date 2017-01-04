@@ -1,0 +1,9 @@
+Compile a C++HelloWorld for Phytec!
+Execute...watch what was wrong!
+
+
+root@phyboard-mira-imx6-3:/C++Programme# ls
+Mavlink_C++   myHelloworld
+root@phyboard-mira-imx6-3:/C++Programme# ./Mavlink_C++
+-sh: ./Mavlink_C++: No such file or directory
+root@phyboard-mira-imx6-3:/C++Programme#
