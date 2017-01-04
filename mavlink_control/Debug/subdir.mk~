@@ -1,0 +1,30 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+CPP_SRCS += \
+../autopilot_interface.cpp \
+../mavlink_control.cpp \
+../serial_port.cpp 
+
+OBJS += \
+./autopilot_interface.o \
+./mavlink_control.o \
+./serial_port.o 
+
+CPP_DEPS += \
+./autopilot_interface.d \
+./mavlink_control.d \
+./serial_port.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+%.o: ../%.cpp
+	@echo 'Building file: $<'
+	@echo 'Invoking: GCC C++ Compiler'
+	arm-phytec-linux-gnueabi-gcc  -march=armv7-a -mthumb-interwork -mfloat-abi=hard -mfpu=neon -mtune=cortex-a9 --sysroot=/opt/yogurt/iMX6-PD15.2.0/sysroots/cortexa9hf-vfp-neon-phytec-linux-gnueabi -I/home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0 -O0 -g3 -Wall -c -fmessage-length=0 -v -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+
