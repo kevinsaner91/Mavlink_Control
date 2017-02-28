@@ -64,12 +64,14 @@
 			\includegraphics[width=.4\textwidth]{Logo-FHNW}
 		\end{figure}
 		
-		\textsc{\Large Zwischenbericht}\\[0.5cm] % Major heading such as course name
+		\textsc{\Large Dokumentation}\\[0.5cm] % Major heading such as course name
 		\begin{doublespace}
 			\HRule \\[1cm]
-			{ \huge \bfseries Datenübertragung mit dem Pixhawk über die UART-Schnittstelle }\\[1cm] % Title of your document
+			{ \huge \bfseries Datenübertragung vom Pixhawk zum SBC}\\[1cm] % Title of your document
 			\HRule \\[1cm]
 		\end{doublespace}
+		
+		{\large \textbf{Auslesen der GPS-Daten vom Pixhawk über UART}}\\[1cm]
 
 		{\large 17. Oktober 2016}\\[1cm] % Date, change the \today to a set date if you want to be precise
 		
@@ -103,19 +105,15 @@
 	\end{description}
 	
 	
-	\section{Ubuntu}
-	Als Host-Computer wird am besten ein Computer mit Ubuntu 14.04 oder einem ähnlichen Betriebssystem eingesetzt. So gestaltet sich auch die Herstellung der Verbindung zum Pixhawk am einfachsten. Wird ein dabei ein SBC von Phytec eingesetzt empfiehlt es sich alle Arbeitsschritte mit dem mitgelieferten Betriebssystem durchzuführen. Beim eingesetzten Betriebssystem muss sichergestellt werden, dass das Package "`screen"' installiert ist. Ist dieses Package noch nicht vorhanden kann es mit dem untenstehenden Befehl nachinstalliert werden. Dieses Package wird benötigt um auf die Pixhawk-Konsole zugreifen zu können (siehe :\\
-	\\
-	\noindent\hspace*{30mm} \textbf{Command:} \$ sudo apt-get install screen
 	
 	\section{QGroundControl}
 	Um den Pixhawk in Betrieb zu nehmen muss auf dem Host-Computer ebenfalls die Applikation QGroundControl vorhanden sein. Die App kann als Imagedatei von \href{https://donlakeflyer.gitbooks.io/qgroundcontrol-user-guide/content/download\_and\_install.html}{QGroundControl} heruntergeladen werden, was dessen Installation relativ einfach macht. Die heruntergeladene Datei sollte nun an sicheren Ort kopiert werden. Anschliessend müssen noch die Benutzerrechte geändert werden.
 	\\
 	\noindent\hspace*{30mm} \textbf{Command:} \$ chmod +x ./QGroundControl.AppImage\\
 	\\
-	Dieser Befehl gibt dem momentanen Benutzer die Erlaubnis die Applikation auszuführen. Der folgende Befehl wiederum führt die Applikation schliesslich aus (oder doppelklicken).\\
+	Dieser Befehl gibt dem momentanen Benutzer die Erlaubnis die Applikation auszuführen. Der folgende Befehl wiederum führt die Applikation schliesslich aus (oder doppelklicken).\\[0.2cm]
 	
-	\noindent\hspace*{30mm} \textbf{Command:} \$ ./QGroundControl.AppImage\\
+	\noindent\hspace*{30mm} \textbf{Command:} \$ ./QGroundControl.AppImage
 	
 	\section{Inbetriebnahme des Pixhawk}
 	
@@ -138,28 +136,32 @@
 	
 	
 	\section{Mavlink}
-	Um Daten auf den Pixhawk zu senden bzw. zu empfangen wird das Kommunikationsprotokoll Mavlink (Micro Air Vehicle Communication Protocol) verwendet. Mavlink sendet dabei C-structs über eine serielle Schnittstelle zu einer Kontrollstation. Als Kontrollstation kann zum Beispiel die vorher schon erwähnte Software QGroundControl dienen.
-	\\Ziel der folgenden Arbeitsschritte ist es, die Mavlink-Messages mit einem C++-Programm interpretieren zu können. Diese Messages sollen dabei einerseits vom Host/Computer interpretiert werden können, in einem zweiten Arbeitsschritt soll das Programm aber für einen Phytec Single Board Computer kompiliert werden, damit dieser die Datenakquisition durchführen kann. 
+	Um Daten auf den Pixhawk zu senden bzw. zu empfangen wird das Kommunikationsprotokoll Mavlink (Micro Air Vehicle Communication Protocol) verwendet. Mavlink streamt dabei die Daten über eine serielle Schnittstelle zu einer Kontrollstation. Als Kontrollstation kann zum Beispiel die vorher schon erwähnte Software QGroundControl dienen.
+	\\Ziel der folgenden Arbeitsschritte ist es, die Mavlink-Messages mit einem C++-Programm interpretieren zu können. Diese Messages sollen dabei einerseits vom Host/Computer interpretiert werden können, in einem zweiten Arbeitsschritt soll das Programm aber für einen Phytec Single Board Computer kompiliert werden, damit dieser die Datenakquisition durchführen kann. Das verwendete C++-Programm basiert dabei grösstenteils auf dem UART-Beispiel auf \href{https://github.com/mavlink/c_uart_interface_example}{Github}.
 	
 	\subsection{Verkabelung}
 
-	Um nun Daten vom Pixhawk auslesen zu können muss der Pixhawk zuerst entsprechend verkabelt werden. Erst durch diesen Schritt wird es möglich auf die Konsole des Pixhawk zuzugreifen. Wichtig ist dabei, dass ein 3.3V-Kabel verwendet wird und kein 5V-Kabel. Wahlweise kann der Pixhawk mit dem mitgelieferten USB-Kabel oder einer anderen Quelle mit Strom versorgt werden. Die Verkabelung muss nach folgendem Schema vorgenommen werden:\\
-\begin{description}
-	\item \textbf{Verkabelung Konsole:}\\ \\
-	\begin{tabular}{p{2cm}p{4cm}p{2cm}p{4cm}}
-		\centering 
-		\textbf{ Pixhawk} & \textbf{(Serial 4/5)} & \textbf{FTDI}& \\ \hline
-		1 & +5V (red)	& 		& N/C				\\ \hline
-		2 & S4 Tx	 	&		& N/C				\\ \hline
-		3 & S4 Rx		&		& N/C				\\ \hline
-		4 & S5 Tx		& 5		& FTDI RX (yellow)	\\ \hline
-		5 & S5 Rx		& 4		& FTDI TX (orange)	\\ \hline
-		6 & GND			& 1		& FTDI GND (black)	\\ \hline
-		
-	\end{tabular}
-\end{description}
+	Um nun Daten vom Pixhawk auslesen zu können muss der Pixhawk zuerst entsprechend verkabelt werden. Erst durch diesen Schritt wird es möglich auf die Konsole des Pixhawk zuzugreifen. Wichtig ist dabei, dass ein 3.3V-FTDI-Kabel verwendet wird und kein 5V-FTDI-Kabel. Wahlweise kann der Pixhawk mit dem mitgelieferten USB-Kabel oder einer anderen Quelle mit Strom versorgt werden. Die Verkabelung muss nach folgendem Schema vorgenommen werden:
+	
+	\subsubsection{Verkabelung Konsole}
+	
+	Die Verkabelung der Konsole ist dabei nicht zwingend notwendig, kann aber hilfreich sein um sein um zu überprüfen ob das Mavlink-Protokoll auf dem verwendeten Port verfügbar ist. 
+	\begin{description}
+		\item
+		\begin{tabular}{p{2cm}p{4cm}p{2cm}p{4cm}}
+			\centering 
+			\textbf{ Pixhawk} & \textbf{(Serial 4/5)} & \textbf{FTDI}& \\ \hline
+			1 & +5V (red)	& 		& N/C				\\ \hline
+			2 & S4 Tx	 	&		& N/C				\\ \hline
+			3 & S4 Rx		&		& N/C				\\ \hline
+			4 & S5 Tx		& 5		& FTDI RX (yellow)	\\ \hline
+			5 & S5 Rx		& 4		& FTDI TX (orange)	\\ \hline
+			6 & GND			& 1		& FTDI GND (black)	\\ \hline
+			
+		\end{tabular}
+	\end{description}
 
-Im folgenden Bild wird dies auch noch grafisch dargestellt:
+	Im folgenden Bild wird dies auch noch grafisch dargestellt:
 
 	\begin{figure}[H]
 		\centering
@@ -167,12 +169,17 @@ Im folgenden Bild wird dies auch noch grafisch dargestellt:
 		\caption{Verkabelung der Konsole}
 		\label{2}
 	\end{figure}
+
+\subsubsection{Verkabelung Mavlink-Kanal}
+	
+	\noindent Um schliesslich Mavlink-Meldungen übertragen zu können, muss ein Port, auf welchem Mavlink-Meldungen gestreamt werden verkabelt werden. Die geeigneten Port sind Telem 1 und 2 sowie der USB-Port.	\\
+	\textbf{TODO} Wie die Verkabelung mit SBC und Pixhawk schliesslich aussieht muss noch ausgearbeitet werden. Dabei ist zu beachten, dass die Datenübertragung über die UART-Ports des Pixhawk (Telem 1 und 2) nicht immer reibungslos zu funktionieren scheint, wohingegen die Übertragung über das USB-Kabel praktisch immer funktioniert.
 	
 	\begin{description}
-		\item \textbf{Verkabelung Mavlink-Kanal:}\\ \\
+		\item
 		\begin{tabular}{p{2cm}p{4cm}p{2cm}p{4cm}}
 			\centering 
-			\textbf{ Pixhawk} & \textbf{Telem 2}& \textbf{FTDI}& \\ \hline
+			\textbf{ Pixhawk} & \textbf{Telem 1}& \textbf{FTDI}& \\ \hline
 			1 & +5V (red)	& 		& N/C				\\ \hline
 			2 & Tx (out)	& 5		& FTDI RX (yellow)				\\ \hline
 			3 & Rx (in)		& 4		& FTDI TX (orange)				\\ \hline
@@ -194,12 +201,11 @@ Im folgenden Bild wird dies auch noch grafisch dargestellt:
 	\end{figure}
 	
 	\noindent
-	Kann der Telemetry-Port nicht verwendet werden, kann auch der serielle Port 4 verwendet werden. Dazu muss das FTDI-Kabel an die S4-Schnittstelle des Pixhawk angeschlossen werden (siehe Verkabelung Konsole).
-	
+	Kann der Telemetry-Port nicht verwendet werden, kann auch der serielle Port 4 verwendet werden. Dazu muss das FTDI-Kabel an die S4-Schnittstelle des Pixhawk angeschlossen werden (siehe Verkabelung Konsole). Diese könnte ausprobiert werden um die oben erwähnten Probleme mi der UART-Schnittstelle zu eliminieren. 
+	\newpage
 	\subsection{Setup} \label{Setup}
 	
-	Sind sämtliche Kabel angebracht entsteht folgendes Setup:
-	
+	Sind sämtliche Kabel angebracht entsteht das unten gezeigte Setup.
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.7]{Setup}
@@ -207,22 +213,23 @@ Im folgenden Bild wird dies auch noch grafisch dargestellt:
 		\label{2}
 	\end{figure}
 	
-	\subsection{Test des Setups}
 	
-	Der Anwender sollte nun in der Lage sein, sich auf die Konsole des Pixhawks einzuloggen. Dazu muss folgender Befehl eingetippt werden:\\
-	\\
-	\noindent\hspace*{30mm} \textbf{Command:} \$ screen /dev/ttyUSB0 57600 8N1\\
-	\\		
-	Falls der Port-Name nicht gefunden wird, kann mit dem Befehl:\\
-	\\
-	\noindent\hspace*{30mm} \textbf{Command:} \$ ls /dev/ttyUSB*\\
-	\\
+	\subsubsection{Einloggen auf Pixhawk-Kosole}
+	
+	Der Anwender sollte nun in der Lage sein, sich auf die Konsole des Pixhawks einzuloggen. Dazu muss folgender Befehl eingetippt werden:
+	\\[0.2cm]
+	\noindent\hspace*{30mm} \textbf{Command:} \$ screen /dev/ttyUSB0 57600 8N1
+	\\[0.2cm]
+	Falls der Port-Name nicht gefunden wird, kann mit dem Befehl:
+	\\[0.2cm]
+	\noindent\hspace*{30mm} \textbf{Command:} \$ ls /dev/ttyUSB*
+	\\[0.2cm]
 	nach allen verfügbaren Ports gesucht werden. Der Anwender ist nun über die serielle Schnittstelle auf dem Pixhawk eingeloggt.\\
 	\\
-	Nun kann die Stromversorgung zum Pixhawk unterbrochen werden, damit dieser neu startet. Dabei werden unter anderen sämtliche Ports ausgegeben, auf welchen Mavlink empfangen werden kann. Ist der gewünschte Port nicht dabei, kann eine entsprechende Mavlink-Session über den jeweiligen Port wie folgt gestartet werden.\\
-	\\
-	\noindent\hspace*{30mm} \textbf{Command:} \$ nsh> mavlink start -d /dev/ttyACM0\\
-	\\
+	Nun kann die Stromversorgung zum Pixhawk unterbrochen werden, damit dieser neu startet. Dabei werden unter anderen sämtliche Ports ausgegeben, auf welchen Mavlink empfangen werden kann. Ist der gewünschte Port nicht dabei, kann eine entsprechende Mavlink-Session über den jeweiligen Port wie folgt gestartet werden.
+	\\[0.2cm]
+	\noindent\hspace*{30mm} \textbf{Command:} \$ nsh> mavlink start -d /dev/ttyACM0
+	\\[0.2cm]
 	Über welche Ports eine aktive Mavlink-Session läuft ist von Bedeutung wenn versucht wird die gesendeten Daten entgegen zu nehmen und zu verarbeiten. Das folgende Beispiel zeigt einen Ausschnitt des Start-up-Prozederes des Pixhawks, daraus ist ersichtlich über welche Ports Mavlink-Messages gesendet bzw. empfangen werden.
 	
 		\begin{figure}[H]
@@ -232,89 +239,31 @@ Im folgenden Bild wird dies auch noch grafisch dargestellt:
 			\label{2}
 		\end{figure}
 	
-	\subsubsection{C++-Mavlink-Schnittstelle}
+	\subsubsection{C++-UART-Mavlink-Schnittstelle}
 	
-	Das Programm welches verwendet wird ist auf \href{https://github.com/mavlink/c_uart_interface_example}{GitHub} frei verfügbar. Die entsprechenden Files können mit dem Befehl:
-	\\ \\
-	\noindent\hspace*{15mm} \textbf{Command:} \$ git clone https://github.com/mavlink/c\_uart\_interface\_example.git\\ \\
+	Wie schon erwähnt basiert das Programm auf dem UART-Interface-Beispiel verfügbar unter \href{https://github.com/mavlink/c_uart_interface_example}{GitHub}. Die entsprechenden Files können mit dem Befehl:
+	\\[0.2cm]
+	\noindent\hspace*{15mm} \textbf{Command:} \$ git clone https://github.com/mavlink/c\_uart\_interface\_example.git\\[0.2cm]
 	\noindent
-	auf dem Host-Computer kopiert werden. Nun muss das Programm erst einmal kompiliert werden. Um das Programm sowie die Verbindungen zum Pixhawk zu testen sollte das Programm zuerst lokal kompiliert werden (ohne Cross-Compiler). Der folgende Befehl kompiliert das Programm zu einem Binary:
-	\\ \\
-	\noindent\hspace*{30mm} \textbf{Command:} \$ cd /path/to/directory/c\_uart\_interface\_example\\
-	\noindent\hspace*{30mm} \textbf{Command:} \$ make\\
-	\\
-	Der Befehl "`make"' hat nun mithilfe der, im Verzeichnis vorhandenen "`Makefiles"' ein Executable erstellt. mit welchen bereits getestet werden kann ob, die Verkabelung funktioniert und ob der Pixhawk korrekt initialisiert wurde.\\
-	Um das eben erstellt Programm zu starten muss der folgende Befehl ausgeführt werden:
-	\\ \\
-	\noindent\hspace*{30mm} \textbf{Command:} \$ ./mavlink\_control -d /dev/ttyACM0\\ \label{Exec Mav}
-	\\
-	Sieht der Output dabei wie folgt aus konnte die Verbindung erfolgreich hergestellt werden.
-	\begin{figure}[H]
-		\centering
-		\fbox{\includegraphics[trim = 20mm 70mm 30mm 20mm, clip, scale=0.65]{Mavlink_Example}}
-		\caption{Programm Output}
-		\label{2}
-	\end{figure}
-	\noindent
-	Der Port "`ttyACM0"' entspricht dabei dem USB-Port des Pixhawk, um nun auch die serielle Verbindung über das FTDI-Kabel zu testen muss der Mavlink-Port (Device: -d) zu "`ttyUSB*"' geändert werden. Ist der Output derselbe funktioniert auch diese Verbindung.
-	
-	\subsection{Cross-Compiling}
-	
-	Da der Phytec Single Board Computer über eine andere Architektur verfügt als ein normaler Desktop-Computer muss das Programm speziell dafür kompiliert werden. Der Phytec verfügt über die, für embedded Systeme, typische ARM-Architektur. Alle benötigten Tools für das Cross-Compiling sind dabei auf dem mitgelieferten USB-Stick.
-	
-	\subsubsection{Eclipse}
-	Da die Entwicklungsumgebung Eclipse bereits auf dem Phytec USB-Stick vorhanden ist, empfiehlt es diese auch zu verwenden. Eine Anleitung wie diese für das Entwickeln von C-Programmen konfiguriert werden muss, befindet sich ebenfalls auf dem USB-Stick (Application Guide). Um zu überprüfen, ob die Toolchain und der Compiler korrekt funktionieren sollte zuerst ein einfaches C-Programm erstellt werden. Eine komplette Anleitung um ein "`Hello World"' in C zu entwickeln findet man dabei im "`Application Guide"' (S. 10 - 23) von Phytec.
-	
-	\subsubsection{C++-Compiling}
-	Das zu kompilierende Mavlink-Interface wurde dabei in C++ geschrieben, was es um einiges komplizierter macht dieses zu kompilieren. Die folgende Anleitung soll Schritt für Schritt aufzeigen was unternommen werden muss, um ein auf dem Phytec lauffähiges Executable des Mavlink-Interfaces zu erhalten.
-	
-	\paragraph*{Projekt erstellen:}
-	Für die Entwicklung eines C++-Programms muss in Eclipse ein neues C++-Projekt erstellt und benannt werden. Ein leeres Projekt ist dabei am besten geeignet.
-	
-	\paragraph*{Build-Pfade:}
-	Damit für das Mavlink-Interface sämtliche Header-Files zur Verfügung stehen, muss das entsprechende Verzeichnis im Projekt miteinbezogen werden. Mit "rechts-klicken" auf das Projekt können unter "`Properties -> C/C++Build -> Settings -> Includes"' Build-Pfade  zum Projekt hinzugefügt werden. Für das Mavlink-Interface muss das Verzeichnis "`/path/to/dir/mavlink/include/mavlink/v1.0"' hinzugefügt werden.
-	
-	\paragraph*{C++-Files:} 
-	Als nächster Schritt können alle C++-Files zum Projekt hinzugefügt werden. Die, für das Mavlink-Interface, benötigten Files sind "`autopilot\_interface.cpp"', "`mavlink\_control.cpp"' und "`serial\_port.cpp"' und deren Header-Files. Treten dabei keine Fehler in den C++-Files auf, ist dies ein Zeichen dafür, dass bis zu diesem Schritt alles richtig gemacht wurde.
-	
-	\paragraph*{Konfiguration:}
-	Da das Mavlink-Interface-Programm ein sogenanntes "`multithreaded"' Programm ist, muss die Bibliothek "`pthread"' ins Programm eingebunden werden. Dazu muss unter "`Properties -> C/C++ Build -> Settings -> GCC C++ Linker -> Libraries"' "`pthread"' hinzugefügt werden.\\
-	\\
-	Die Konfiguration des "`GCC C Compiler"' erfolgt gleich wie zur Entwicklung von C-Programmen. Als "`Command"' muss lediglich \$\{CC\} eingegeben werden. Auf die gleiche Art kann auch der "`GCC C++ Compiler"' konfiguriert werden.\\
-	\\
-	Als Linker kann jedoch nicht der GCC-Linker verwendet werden. Dazu muss ein G++-Linker verwendet werden. Dazu muss der komplette Pfad des Linker eingebunden werden. Somit muss zuerst nach dem G++-Compiler gesucht werden. Das gesucht File heisst "`arm-phytec-linux-gnueabi-g++"' und befindet sich normalerweise im Ordner "`/opt/yogurt/iMX6-PD15.2.0/sysroot/x86\_64-yogurtsdk-linux/usr/bin/arm-phytec-gnueabi"'. Wie im "`Application Guide"' beschrieben muss auch hier in den Linker-Settings \$\{LDFLAGS\} ergänzt werden.\\
-	\\
-	Als letztes muss auch noch der "`GCC Assembler"' konfiguriert werden. Dazu muss auch lediglich, wie im "`Application Guide"' beschrieben, unter "`Command"' \$\{AS\} eingegeben werden.\\
-	\\
-	Nun sollte durch "`Build Project"' erfolgreich ein Binary (Executable) hergestellt werden können.
-	
-	\paragraph{Post-build:}
-	Um das Programm sogleich auf dem Phytec ausführen zu können, können die Post-build steps so konfiguriert werden, dass das erstellt Executable sogleich auf den Phytec geladen und ausgeführt wird. Dazu muss folgendes Command ergänzt werden: "`scp ./NameOfExec root@192.168.3.11:/. ;ssh root@192.168.3.11 /NameOfExec"'. Das Executable wird so im Root-Verzeichnis des SBCs ausgeführt.\\
-	\\
-	\textbf{Achtung:} Die Netzwerkumgebung muss natürlich zuerst richtig konfiguriert werden, damit die Post-build steps korrekt ausgeführt werden.
-	
-	\newpage
-	\paragraph{Konfiguration Phytec:}
-	Wird zum ersten Mal versucht das erstellte Executable auszuführen, wird wahrscheinlich eine Fehlermeldung angezeigt. Nämlich dass das File nicht gefunden wird. Diese Fehlermeldung wird ausgegeben da der zum Ausführen des Programms benötigte Interpreter nicht gefunden wird. Der Name des benötigten Interpreters erfährt man durch die folgende Befehlszeileneingabe:\\
-	\\ 	
-	\noindent\hspace*{30mm} \textbf{Command:} \$ readelf -l NameOfExec\\
-	\\
-	Damit das Programm ausgeführt werden kann, muss das in der Zeile "`Requesting program interpreter"' File im richtigen Verzeichnis vorhanden sein. Sucht man dieses File auf dem Phytec SBC wird man feststellen, dass dieses nicht vorhanden ist. Allerdings existiert ein File mit einem ähnlichen Namen, wie zum Beispiel "`ld-linux-armhf.so.3"'. Dies ist der auf dem Phytec vorhandene Interpreter oder zumindest zeigt dieses File auf den Interpreter. Um nun den Interpreter dem erstellten Programm zugänglich zu machen muss ein \href{https://de.wikipedia.org/wiki/Symbolische\_Verkn\%C3\%BCpfung}{symbolischer Link} erstellt werden, der auf das File "`ld-linux-armhf.so.3"' zeigt. Der Link kann wie folgt erstellt werden:
-	\\ 	
-	\noindent\hspace*{30mm} \textbf{Command:} \$ ln -s /lib/ld-linux-armhf.so.3 /lib/ld-linux.so.3\\
-	\\
-	Nun sollte das erstellte Programm ausgeführt werden können.
+	auf dem Host-Computer kopiert werden. Die gesamten Definitionen des Mavlink-Protokoll können unter folgendem Link gefunden werden \href{https://pixhawk.ethz.ch/mavlink/}{Mavlink}. Da sind sämtliche Messages aufgeführt die vom Pixhawk gesendet werden können, und ebenso deren Definition.
 
+	\paragraph{Programmablauf}\ \\
+	Das Programm wurde dann noch mit ein paar Funktionen ergänzt, damit das Programm im FindMine-Projekt verwendet werden kann. Der Programmablauf sieht aktuell wie folgt aus: Zuerst versucht das Programm den ausgewählten Port zu initialisieren. Der Standard-Port ist dabei USB0 mit einer Baudrate von 57600. Um einen anderen Port zu verwenden können dem Programm Parameter übergeben werden, muss nicht extra der Code geändert werden. Nun wird versucht die System-IDs, des Pixhawk zu erfahren. Als nächstes wird vom Pixhawk eine Home-Position erwartet. Auf diese wird solange gewartet bis der Pixhawk ein GPS-Signal findet. Damit man das Programm auch ohne GPS-Log debuggen kann, kann dieser Schritt übersprungen werden. Allerdings erhält man so nur Dummy-Daten. Es ist zu beachten, dass das GPS-Signal nur empfangen wird wenn man sich unter freiem Himmel befindet.\\
+	Als nächstes sendet der Host-Computer, eine Zielposition an den Pixhawk, die dieser dann zu erreichen versucht. Diese Funktion (enable/disable offboard control) wird wahrscheinlich zu einen später Zeitpunkt nicht mehr verwendet und kann entfernt werden.\\
+	Nun versucht der Host-PC Daten vom Pixhawk zu lesen. Da das Lesen der Daten, insbesondere der Positionsdaten, die Hauptaufgabe des Programms ist wird dies nun in einer Endlosschlaufe ausgeführt. Der Main-Loop wird momentan maximal im Sekundentakt, also mit 1 Hz ausgeführt. Diese Frequenz muss noch optimiert werden. Der Pixhawk liefert die Daten mit einer Maximalfrequenz von 10 Hz, dies ist also das Maximum, dass erreicht werden kann. Dabei werden ähnlich dem SBGC-Interface, die Daten in ein CSV-File geschrieben. Die Positionsdaten, können dabei als relative wie auch als globale Werte empfangen werden. Die Positionsdaten werden zudem mit dem Zeitstempel des Pixhawk wie auch des SBCs ergänzt. Der Zeitstempel des Pixhawk entspricht dabei i.d.R. der seit Systemstart vergangenen Zeit in Mikrosekunden (siehe \href{https://pixhawk.ethz.ch/mavlink/#HIGHRES_IMU}{HIGHRES\_IMU}). Die Art wie der Zeitstempel des Pixhawk kreiert wird entspricht der des SBGC-Interface.\\
+	Zur Zeit werden auch noch die restlichen Daten die vom Pixhawk gesendet werden in ein File abgespeichert. Dies geschieht bei jedem 50 Durchlauf des Main-Loop. Stellt sich heraus, dass diese Daten ebenfalls nie verwendet werden, kann dieser Programmteil ebenfalls entfernt werden.
+	
+	\paragraph{Kompilation}\ \\
+	Das Programm kann unter Ubuntu mit den im Projekt enthaltenen Make-Files problemlos kompiliert werden. Um das Programm für den SBC kompilieren zu können, müssen die Anweisungen im Cross-Compilation-Guide befolgt werden.\\ \\\
+	\noindent
+	Um das eben erstellte Programm zu starten muss der folgende Befehl ausgeführt werden:
+	\\[0.2cm]
+	\noindent\hspace*{30mm} \textbf{Command:} \$ ./mavlink\_control -d /dev/ttyACM0\\ \label{Exec Mav}
 	
 	\subsubsection{Ergebnis}
-	Nach dem Post-build wird das erstellte Programm auf dem Phytec ausgeführt, jedoch, in der Regel, sogleich wieder durch eine Exception abgebrochen. Die passiert weil das Standard-Device (/dev/ttyUSB0) nicht verfügbar ist. Ist jedoch die erste Programmzeile "`OPEN PORT"' sichtbar, ist das Programm lauffähig. Nun muss lediglich der Pixhawk wie in Kapitel \pageref{Setup}.2 erklärt an den SBC angeschlossen werden. Somit können der Pixhawk und der Phytec SBC nun über Mavlink kommunizieren, dass heisst es können Kommandos gesendet wie auch empfangen werden.\\
+	Damit das Programm nun auf dem Phytec SBC ausgeführt werden kann, muss das entsprechende Setup erstellt werden (siehe \ref{Setup}). Zudem muss der entsprechende Port ausgewählt werden, ist der Port nicht verfügbar bricht das Programm mit einer Exception ab. Ist alles korrekt konfiguriert können der Pixhawk und der Phytec SBC nun über Mavlink kommunizieren, dass heisst es können Kommandos gesendet wie auch empfangen werden.\\
 	\\
-	Das Programm kann nach der korrekten Verkabelung auf dem Phytec SBC ausgeführt werden, dazu kann derselbe Befehl wie beim Starten vom Host-Computer verwendet werden (siehe \pageref{Exec Mav}). Ist der Programmoutput ebenfalls derselbe wie unter bei Abb. \ref{2} wurde das Setup richtig erstellt so wie sämtliche Schritte zur Kompilation des Programms korrekt ausgeführt. 
-	
-	
-	
-	
-	
+	Das Programm kann mit demselben Befehl wie beim Starten vom Host-Computer ausgeführt werden (siehe \pageref{Exec Mav}). Unter der Bedingung, dass der Pixhawk ebenfalls korrekt initialisiert und über GPS-Signal verfügt, wird nun ein File mit den erhaltenen GPS-Daten sowie den IMU-Daten erstellt, dass in das Post-Processing miteinbezogen werden kann.
 	
 
 \newpage
@@ -322,10 +271,22 @@ Im folgenden Bild wird dies auch noch grafisch dargestellt:
 \begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
 	\raggedright
 	
-	\bibitem{Prosys}
-	Prosys OPC UA Java SDK:
-	\newblock {\em Preisliste}
-	\newblock [online] Available at: https://downloads.prosysopc.com/opcua/Prosys\_OPC\_UA\_Java\_SDK\_Price\_List.pdf [Zugriff am 21.06.2016]
+	\bibitem{1}
+	Pixhawk Autopilot:
+	\newblock {\em Quick Start Guide}
+	\newblock [online] Available at: https://3dr.com/wp-content/uploads/2014/03/pixhawk-manual-rev7.pdf [Zugriff am 28.02.2017]
+	
+	\bibitem{2}
+	Lorenz Meier:
+	\newblock {\em C-UART Interface Example}
+	\newblock [online] Available at: https://github.com/mavlink/c\_uart\_interface\_example [Zugriff am 28.02.2017]
+	
+	\bibitem{3}
+	ETHZ:
+	\newblock {\em Mavlink Common Messages Set}
+	\newblock [online] Available at: https://pixhawk.ethz.ch/mavlink/e [Zugriff am 28.02.2017]
+
+
 
 \end{thebibliography}
 
