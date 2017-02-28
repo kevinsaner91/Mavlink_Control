@@ -52,9 +52,11 @@
 //   Includes
 // ------------------------------------------------------------------------------
 
-//#include <pthread.h>
 #include "autopilot_interface.h"
+#include <string>
+#include <iostream>
 
+using namespace std;
 
 // ----------------------------------------------------------------------------------
 //   Time
@@ -91,7 +93,6 @@ set_position(float x, float y, float z, mavlink_set_position_target_local_ned_t 
 	sp.x   = x;
 	sp.y   = y;
 	sp.z   = z;
-
 
 	printf("POSITION SETPOINT XYZ = [ %.4f , %.4f , %.4f ] \n", sp.x, sp.y, sp.z);
 
@@ -376,8 +377,7 @@ read_messages()
 //				this_timestamps.position_target_global_int &&
 //				this_timestamps.highres_imu                &&
 //				this_timestamps.attitude                   &&
-				this_timestamps.sys_status
-				;
+				this_timestamps.sys_status;
 
 		// give the write thread time to use the port
 		if ( writing_status > false ) {
@@ -632,13 +632,17 @@ start()
 	// --------------------------------------------------------------------------
 
 	// Wait for initial position ned
-	while ( not ( current_messages.time_stamps.local_position_ned &&
-				  current_messages.time_stamps.attitude            )  )
+	printf("WAITING FOR INITIAL POSITION\n");
+
+	string skip;
+	while ( not ( current_messages.time_stamps.local_position_ned && current_messages.time_stamps.attitude)  )
 	{
-		if ( time_to_exit )
+		printf("You can skip this step by typing \"yes\". Though the received data can be unreliable\n");
+		cin >> skip;
+		if ( time_to_exit || !skip.compare("yes")){
 			return;
+		}
 		usleep(500000);
-		//printf("Waiting for initial position\n");
 	}
 
 	// copy initial position ned

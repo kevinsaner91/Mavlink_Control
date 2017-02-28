@@ -116,8 +116,7 @@ autopilot_interface.d: ../autopilot_interface.cpp \
  /home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0/common/./mavlink_msg_named_value_float.h \
  /home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0/common/./mavlink_msg_named_value_int.h \
  /home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0/common/./mavlink_msg_statustext.h \
- /home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0/common/./mavlink_msg_debug.h \
- /home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0/common/mavlink.h
+ /home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0/common/./mavlink_msg_debug.h
 
 ../autopilot_interface.h:
 
@@ -356,5 +355,3 @@ autopilot_interface.d: ../autopilot_interface.cpp \
 /home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0/common/./mavlink_msg_statustext.h:
 
 /home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0/common/./mavlink_msg_debug.h:
-
-/home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0/common/mavlink.h:

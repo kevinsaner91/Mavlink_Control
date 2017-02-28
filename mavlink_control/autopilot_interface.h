@@ -131,26 +131,6 @@ void* start_autopilot_interface_write_thread(void *args);
 //   Data Structures
 // ------------------------------------------------------------------------------
 
-struct Data
-{
-	uint64_t time;
-	float pos_x;
-	float pos_y;
-	float pos_z;
-	float acc_x;
-	float acc_y;
-	float acc_z;
-	float gyro_x;
-	float gyro_y;
-	float gyro_z;
-	float mag_x;
-	float mag_y;
-	float mag_z;
-	float abs_pressure;
-	float altitude;
-	float temperature;
-};
-
 struct Time_Stamps
 {
 	Time_Stamps()

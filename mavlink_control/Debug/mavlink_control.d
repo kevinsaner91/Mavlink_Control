@@ -116,8 +116,7 @@ mavlink_control.d: ../mavlink_control.cpp ../mavlink_control.h \
  /home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0/common/./mavlink_msg_named_value_int.h \
  /home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0/common/./mavlink_msg_statustext.h \
  /home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0/common/./mavlink_msg_debug.h \
- ../autopilot_interface.h ../serial_port.h \
- /home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0/common/mavlink.h
+ ../autopilot_interface.h ../serial_port.h
 
 ../mavlink_control.h:
 
@@ -358,5 +357,3 @@ mavlink_control.d: ../mavlink_control.cpp ../mavlink_control.h \
 ../autopilot_interface.h:
 
 ../serial_port.h:
-
-/home/kevin/Documents/c_uart_interface_example/mavlink/include/mavlink/v1.0/common/mavlink.h:

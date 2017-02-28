@@ -37,19 +37,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: Mavlink_C++
+all: mavlink_control
 
 # Tool invocations
-Mavlink_C++: $(OBJS) $(USER_OBJS)
+mavlink_control: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	/opt/yogurt/iMX6-PD15.2.0/sysroots/x86_64-yogurtsdk-linux/usr/bin/arm-phytec-linux-gnueabi/arm-phytec-linux-gnueabi-g++ -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -o "Mavlink_C++" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++  -o "mavlink_control" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C++_DEPS)$(C_DEPS)$(CC_DEPS)$(CPP_DEPS)$(EXECUTABLES)$(CXX_DEPS)$(C_UPPER_DEPS) Mavlink_C++
+	-$(RM) $(OBJS)$(C++_DEPS)$(C_DEPS)$(CC_DEPS)$(CPP_DEPS)$(EXECUTABLES)$(CXX_DEPS)$(C_UPPER_DEPS) mavlink_control
 	-@echo ' '
 
 .PHONY: all clean dependents
